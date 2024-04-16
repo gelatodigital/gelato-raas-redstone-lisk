@@ -12,6 +12,11 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
 
+  await deploy("RedstoneOracle", {
+    from: deployer,
+    log: hre.network.name !== "hardhat",
+  });
+
   const adapterETH= await deploy("RedstonePriceFeedWithRoundsETH", {
     from: deployer,
     log: hre.network.name !== "hardhat",
